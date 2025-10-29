@@ -26,7 +26,11 @@ jobs:
                     MONGO_INITDB_ROOT_USERNAME: admin
                     MONGO_INITDB_ROOT_PASSWORD: password
         steps:
+            - name: Checkout APP
+              uses: actions/checkout@v4
+
             - name: Install dependencies
               run: npm install
+              
             - name: Run the tests
               run: npm run test
