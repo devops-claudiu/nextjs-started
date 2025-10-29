@@ -15,14 +15,10 @@ jobs:
         services:
             app:
                 image: cla0207/nextjs-started:latest
-                ports:
-                    - 3000:3000
                 env:
                     MONGODB_URI: "mongodb://admin:password@localhost:27017/mydatabase?authSource=admin" 
             mongodb:
                 image: mongo:6.0
-                ports:
-                    - 27017:27017
                 env:
                     MONGO_INITDB_ROOT_USERNAME: admin
                     MONGO_INITDB_ROOT_PASSWORD: password
