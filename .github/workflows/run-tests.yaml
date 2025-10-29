@@ -16,16 +16,20 @@ jobs:
             app:
                 image: cla0207/nextjs-started:latest
                 env:
-                    MONGODB_URI: "mongodb://admin:password@localhost:27017/mydatabase?authSource=admin" 
+                    MONGODB_URI: "mongodb://admin:password@localhost:27017/mydatabase?authSource=admin"
+                ports:
+                    - 3000:3000
             mongodb:
                 image: mongo:6.0
                 env:
                     MONGO_INITDB_ROOT_USERNAME: admin
                     MONGO_INITDB_ROOT_PASSWORD: password
+                ports:
+                    - 27017:27017
         steps:
             - name: Get Information about services
               run: echo "${{toJson(job.services)}}"
-              
+
             - name: Checkout APP
               uses: actions/checkout@v4
 
