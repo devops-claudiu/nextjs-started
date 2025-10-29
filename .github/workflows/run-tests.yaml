@@ -29,7 +29,7 @@ jobs:
         steps:
             - name: Checkout APP
               uses: actions/checkout@v4
-              
+
             - name: Install system dependencies
               run: |
                 apk update
@@ -39,7 +39,7 @@ jobs:
               run: npm install
 
             - name: Check the url
-              run: curl http://app:3000/
+              run: curl -v http://localhost:3000/
 
             - name: Run the tests
               run: npm run test
