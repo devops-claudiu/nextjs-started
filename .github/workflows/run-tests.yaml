@@ -1,0 +1,32 @@
+name: Run Tests
+
+on:
+    workflow_run:
+        workflows: [Build and Push the Docker Image]
+        types:
+            - completed
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        container:
+            image: node:20-alpine
+        services:
+            app:
+                image: cla0207/nextjs-started:latest
+                ports:
+                    - 3000:3000
+                env:
+                    MONGODB_URI: "mongodb://admin:password@mongodb:27017/mydatabase?authSource=admin"
+            mongodb:
+                image: mongo
+                ports:
+                    - 27017:27017
+                env:
+                    MONGO_INITDB_ROOT_USERNAME: admin
+                    MONGO_INITDB_ROOT_PASSWORD: password
+        steps:
+            - name: Install dependencies
+              run: npm install
+            - name: Run the tests
+              run: npm run test
