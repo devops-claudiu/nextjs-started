@@ -32,6 +32,8 @@ jobs:
 
             - name: Checkout APP
               uses: actions/checkout@v4
+            - name: Check container
+              run: docker ps
 
             - name: Install system dependencies
               run: |
