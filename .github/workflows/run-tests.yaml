@@ -17,8 +17,6 @@ jobs:
                 image: cla0207/nextjs-started:latest
                 ports:
                     - 3000:3000
-                env:
-                    MONGODB_URI: "mongodb://admin:password@mongodb:27017/mydatabase?authSource=admin"
             mongodb:
                 image: mongo
                 ports:
