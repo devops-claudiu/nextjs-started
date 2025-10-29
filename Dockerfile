@@ -1,7 +1,6 @@
-FROM node:18-alpine
+FROM node:20-alpine
 WORKDIR /app
 RUN apk update
-RUN apk install -y curl tar
 COPY package*.json ./
 RUN npm install
 COPY . .

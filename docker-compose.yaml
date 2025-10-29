@@ -2,18 +2,32 @@ version: '3.9'
 
 services:
   web:
+    depends_on:
+        - mongodb
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: nextjs-app
+    environment:
+        - MONGODB_URI=mongodb://admin:password@mongodb:27017/mydatabase?authSource=admin
     ports:
-      - "3000:3000"
+        - "3000:3000"
     volumes:
-      - .:/app
-      - /app/node_modules
+        - .:/app
+        - /app/node_modules
     command: npm run dev
+
   mongodb:
     image: mongo:6.0
     container_name: mongodb
     restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
     ports:
       - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db  # Added for data persistence
+
+volumes:
+  mongodb_data:
