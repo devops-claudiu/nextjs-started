@@ -1,6 +1,8 @@
 name: Build and Push the Docker Image
 
-on: [workflow_dispatch]
+on:
+    release:
+        types: [published]
 
 env: 
     IMAGE_NAME: ${{secrets.DOCKERHUB_USERNAME}}/${{ github.event.repository.name }}
