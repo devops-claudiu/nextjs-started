@@ -23,6 +23,9 @@ jobs:
                     MONGO_INITDB_ROOT_USERNAME: admin
                     MONGO_INITDB_ROOT_PASSWORD: password
         steps:
+            - name: Get Information about services
+              run: echo "${{toJson(job.services)}}"
+              
             - name: Checkout APP
               uses: actions/checkout@v4
 
