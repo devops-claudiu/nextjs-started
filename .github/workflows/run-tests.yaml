@@ -10,8 +10,6 @@ on:
 jobs:
     test:
         runs-on: ubuntu-latest
-        container:
-            image: node:20-alpine
         services:
             app:
                 image: cla0207/nextjs-started:latest
@@ -37,8 +35,8 @@ jobs:
 
             - name: Install system dependencies
               run: |
-                apk update
-                apk add --no-cache curl
+                apt-get update
+                apt install curl
 
             - name: Install dependencies
               run: npm install
