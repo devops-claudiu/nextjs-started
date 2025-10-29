@@ -35,8 +35,8 @@ jobs:
 
             - name: Install system dependencies
               run: |
-                apt-get update
-                apt install curl
+                sudo apt-get update
+                sudo apt install curl
 
             - name: Install dependencies
               run: npm install
