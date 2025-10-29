@@ -4,8 +4,6 @@ RUN apk update
 COPY package*.json ./
 RUN npm install
 COPY . .
-# Build the application
-RUN npm run build
 
 # Expose port
 EXPOSE 3000
