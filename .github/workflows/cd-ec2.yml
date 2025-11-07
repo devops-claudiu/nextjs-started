@@ -1,0 +1,18 @@
+name: Deploy the image to EC2 Instance
+
+on:
+    workflow_run:
+        workflows: ["Build and Push the Image to Docker Hub"]
+        types:
+            - completed
+env: 
+    IMAGE_NAME: ${{secrets.DOCKERHUB_USERNAME}}/${{ github.event.repository.name }}
+jobs:
+    build:
+        runs-on: cd-prod
+
+        steps:
+            - name: Pull Docker Image
+              run: docker pull ${{env.IMAGE_NAME}}:latest
+            - name: Run Docker Container
+              run: docker run -d -p 3000:3000 --name nextjs ${{env.IMAGE_NAME}}
