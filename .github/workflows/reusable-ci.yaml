@@ -1,0 +1,43 @@
+name: Reusable Workflow CI
+
+on:
+    workflow_call:
+        inputs:
+            node-version:
+                required: true
+                type: string
+            run-tests:
+                required: false
+                type: boolean
+                default: true
+            deploy-environment:
+                required: false
+                type: string
+                default: 'stagging'
+
+        secrets:
+            deploy-token:
+            required: true
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                node-version: ${{inputs.node-version}}
+            
+            - name: Run Tests
+              if: ${{inputs.run-tests}}
+              run: npm run test
+    
+    deploy:
+        runs-on: ubuntu-latest
+        needs: test
+        environment: ${{inputs.deploy-environment}}
+        steps:
+            - name: Deploy the application
+              run: docker compose -f docker-compose.${{inputs.deploy-environment}}.yaml up -d # nu sunt sigur ca functioneaza
+              env:
+                DEPLOY_TOKEN: ${{ secrets.deploy-token }}

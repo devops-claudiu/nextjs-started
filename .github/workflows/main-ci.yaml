@@ -1,0 +1,12 @@
+name: Main CI
+on: [push, pull_request]
+
+jobs:
+    call-reusable-workflow:
+            uses: ./.github/workflows/reusable-ci.yml
+            with:
+                node-version: '18'
+                run-tests: true
+                deploy-environment: 'staging'
+            secrets:
+                deploy-token: ${{ secrets.DEPLOY_TOKEN }}
