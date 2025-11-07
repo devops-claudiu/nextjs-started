@@ -14,5 +14,7 @@ jobs:
         steps:
             - name: Pull Docker Image
               run: docker pull ${{env.IMAGE_NAME}}:latest
+            - name: Delete old container
+              run: docker rm -f nextjs || true
             - name: Run Docker Container
               run: docker run -d -p 3000:3000 --name nextjs ${{env.IMAGE_NAME}}
