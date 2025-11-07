@@ -1,8 +1,8 @@
 name: Build and Push the Docker Image
-
-on:
-    release:
-        types: [published]
+on: [issues]
+#on:
+    #releaserrrr:
+     #   types: [published]
 
 env: 
     IMAGE_NAME: ${{secrets.DOCKERHUB_USERNAME}}/${{ github.event.repository.name }}
