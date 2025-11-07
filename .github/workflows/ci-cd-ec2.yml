@@ -1,22 +1,25 @@
 name: Deploy the Image Application To EC2 AWS
 
 on:
-    workflow_dispatch:
+    release:
+        types: [published]
 
 env: 
     IMAGE_NAME: ${{secrets.DOCKERHUB_USERNAME}}/${{ github.event.repository.name }}
 
 jobs:
-    build:
+    build-push-image:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout the Code
+            - name: Checkout APP
               uses: actions/checkout@v4
+            
             - name: Login to Docker Hub
               uses: docker/login-action@v3
               with:
                 username: ${{secrets.DOCKERHUB_USERNAME}}
                 password: ${{secrets.DOCKERHUB_TOKEN}}
+            
             - name: Extract MetaData
               id: metadata
               uses: docker/metadata-action@v4
@@ -34,4 +37,4 @@ jobs:
                 file: ./Dockerfile
                 push: true
                 tags: ${{ steps.metadata.outputs.tags }}
-                labels: ${{ steps.metadata.outputs.labels }}
+                labels: ${{ steps.metadata.outputs.labels }} 
