@@ -1,4 +1,4 @@
-name: Deploy the Image Application To EC2 AWS
+name: Build and Push the Image to Docker Hub
 
 on:
     release:
