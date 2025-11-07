@@ -9,7 +9,7 @@ env:
     IMAGE_NAME: ${{secrets.DOCKERHUB_USERNAME}}/${{ github.event.repository.name }}
 jobs:
     build:
-        runs-on: cd-prod
+        runs-on: self-hosted
 
         steps:
             - name: Pull Docker Image
